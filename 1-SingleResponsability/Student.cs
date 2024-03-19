@@ -8,15 +8,15 @@ namespace SingleResponsibility
 
     public Student()
     {
-      this.Fullname = string.Empty;
-      this.Grades = new List<double>();
+      Fullname = string.Empty;
+      Grades = new List<double>();
     }
 
     public Student(int id, string fullname, List<double> grades)
     {
-      this.Id = id;
-      this.Fullname = fullname;
-      this.Grades = grades;
+      Id = id;
+      Fullname = fullname;
+      Grades = grades;
     }
   }
 }
