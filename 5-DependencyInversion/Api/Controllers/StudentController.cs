@@ -5,20 +5,26 @@ namespace DependencyInversion.Controllers;
 [ApiController, Route("student")]
 public class StudentController : ControllerBase
 {
-    StudentRepository studentRepository = new StudentRepository();
-    Logbook logbook = new Logbook();
+  readonly IStudentRepository studentRepository;
+  readonly ILogbook logbook;
 
-    [HttpGet]
-    public IEnumerable<Student> Get()
-    {
-        logbook.Add($"returning student's list");
-        return studentRepository.GetAll();
-    }
+  public StudentController(IStudentRepository studentRepository, ILogbook logbook) 
+  {
+    this.studentRepository = studentRepository;
+    this.logbook = logbook;
+  }
 
-    [HttpPost]
-    public void Add([FromBody]Student student)
-    {
-        studentRepository.Add(student);
-        logbook.Add($"The Student {student.Fullname} have been added");
-    }
+  [HttpGet]
+  public IEnumerable<Student> Get()
+  {
+    logbook.Add($"returning student's list");
+    return studentRepository.GetAll();
+  }
+
+  [HttpPost]
+  public void Add([FromBody] Student student)
+  {
+    studentRepository.Add(student);
+    logbook.Add($"The Student {student.Fullname} have been added");
+  }
 }
